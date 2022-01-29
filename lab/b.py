@@ -1,7 +1,7 @@
 s = str(input())
-sum = int(0)
-for i in range(len(s)):
-    sum += ord(s[i])
+sum = 0
+for i in s:
+    sum += ord(i)
 if sum > 300:
     print("It is tasty!")
 else:
