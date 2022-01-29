@@ -1,8 +1,11 @@
-s = str(input())
-sum = 0
-for i in s:
-    sum += ord(i)
-if sum > 300:
-    print("It is tasty!")
-else:
-    print("Oh, no!")
+def toLowercase(s):
+    temp = ''
+    for i in s:
+        if(i >= 'A' and i <= 'Z'):
+            temp = temp + chr((ord(i) + 32))
+        else:
+            temp = temp + i
+    print(temp)
+
+s = input()
+toLowercase(s)
