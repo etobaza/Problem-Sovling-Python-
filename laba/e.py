@@ -1,12 +1,18 @@
-n, x = map(int, input().split())
+n = input().split()
+if(len(n)<2): #шобы когда инпут в две строки 
+    x = int(input()) #икс в лист
+    n.append(x) 
+
+ntemp = int(n[0])
+xtemp = int(n[1])
 arr = []
 
-for i in range(n):
-    arr.append(x + 2*i)
+for i in range(ntemp):
+    arr.append(xtemp + 2*i)
 
 res = arr[0]
 
-for i in range(1, n):
+for i in range(1, ntemp):
     res = res^arr[i]
 
 print(res)
