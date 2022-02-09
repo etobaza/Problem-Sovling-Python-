@@ -1,5 +1,5 @@
 n = int(input())
-m = [0] * n 
+m = [0] * n
 for i in range(n): 
     m[i] = [0] * n
 
