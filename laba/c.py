@@ -1,7 +1,7 @@
-import numpy as np 
-
 n = int(input())
-m = np.zeros((n, n), dtype = int)
+m = [0] * n 
+for i in range(n): 
+    m[i] = [0] * n
 
 for j in range(n):
     m[0][j] = j 
