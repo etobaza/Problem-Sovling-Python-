@@ -1,11 +1,8 @@
-n = int(input())
-x = int(input())
+n, x = map(int, input().split())
 arr = []
 
 for i in range(n):
     arr.append(x + 2*i)
-
-#print(arr)
 
 res = arr[0]
 
