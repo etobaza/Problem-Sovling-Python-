@@ -18,6 +18,6 @@ bkar.sort()
 
 for i in range(len(student)):
     if lucky - student[bkar[i]] != 0:
-        print(bkar[i], "has to recieve", lucky - student[bkar[i]], "tenge")
+        print(bkar[i], "has to receive", lucky - student[bkar[i]], "tenge")
     if lucky == student[bkar[i]]:
         print(bkar[i], "is lucky!")
