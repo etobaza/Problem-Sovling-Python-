@@ -1,8 +1,8 @@
 from collections import defaultdict
 
 n = int(input())
-demon = defaultdict(int)
-hunter = defaultdict(int)
+demon = {}
+hunter = {}
 temp = 0
 
 for i in range(n):
