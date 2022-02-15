@@ -4,4 +4,4 @@ def palindrome(s):
     else:
         return "Not Palindrome"
 s = input()
-print(palindrome(s))
+print(palindrome(s)) 
