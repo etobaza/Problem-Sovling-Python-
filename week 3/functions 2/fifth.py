@@ -78,11 +78,13 @@ movies = [
 }
 ]
 
-def sublist_of_movies():
+def single_movie(category):
+    arr = []
     for i in movies:
-        if i["imdb"] > 5.5:
-            continue
-        else:
-            print(i["name"])
+     if i["category"] == category:
+         arr.append(i["imdb"])
+    total = sum(arr) / len(arr)
+    print(total)
 
-sublist_of_movies()
+category = input()
+single_movie(category)

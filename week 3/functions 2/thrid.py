@@ -78,11 +78,11 @@ movies = [
 }
 ]
 
-def sublist_of_movies():
+
+def category_name(genre):
     for i in movies:
-        if i["imdb"] > 5.5:
-            continue
-        else:
+        if i["category"] == genre:
             print(i["name"])
 
-sublist_of_movies()
+genre = input()
+category_name(genre)

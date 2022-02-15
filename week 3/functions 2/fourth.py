@@ -78,11 +78,11 @@ movies = [
 }
 ]
 
-def sublist_of_movies():
+def average(movies):
+    arr = []
     for i in movies:
-        if i["imdb"] > 5.5:
-            continue
-        else:
-            print(i["name"])
+        arr.append(i["imdb"])
+    total = sum(arr)/len(arr)
+    print(total)
 
-sublist_of_movies()
+average(movies)
