@@ -1,12 +1,12 @@
-class Person:
+class Str:
 
-    def getString():
-        string = input()
-        return string
+    def getString(self):
+        self.s = input()
+        
+    def printString(self):
+         print(self.s.upper())
 
-    def printString(string):
-        print(string.upper())
+s1 = Str()
 
-p1 = Person
-p1.getString()
-p1.printString("Hello world")
+s1.getString()
+s1.printString()
