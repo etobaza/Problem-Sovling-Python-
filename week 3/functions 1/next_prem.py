@@ -1,6 +1,8 @@
-import itertools
+from itertools import permutations
 
+def perm(string):
+ for i in list(permutations(string)):
+  print(i)
+  
 s = input()
-
-for i in itertools.permutations(s, len(s)):
-    print(i)
+print(perm(s))
