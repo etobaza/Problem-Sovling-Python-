@@ -1,5 +1,4 @@
 class Shape:
-    
     def __init__(self):
         self.length = 0
 
@@ -7,7 +6,6 @@ class Shape:
         return 0
 
 class Rectangle(Shape):
-
     def __init__(self, length, width):
         self.len = length
         self.wid = width

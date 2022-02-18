@@ -10,13 +10,11 @@ class Account:
 
     def withdraw(self):
         cash_out = int(input("How much money to withdraw?: "))
-        if  self.balance > cash_out:
+        if  self.balance >= cash_out:
             self.balance = self.balance - cash_out
             print("Current balance on", name, "account is:", self.balance)
-        if self.balance < cash_out:
+        else:
             print("Insufficient funds!")
-        if self.balance - cash_out == 0:
-            print("Current balance on", name, "account is: 0")
 
 name = input("Please enter you name: ")
 his_shekels = int(input("How much do you want to deposit?: "))
