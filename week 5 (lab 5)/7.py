@@ -5,4 +5,4 @@ def camel(s):
 
 a = input()
 x = re.sub("_[a-z]", camel, a)
-print(x)
+print(x)  
