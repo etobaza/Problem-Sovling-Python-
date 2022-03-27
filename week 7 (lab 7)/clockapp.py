@@ -1,6 +1,5 @@
 import pygame
 import datetime
-import math
 
 # Setup
 pygame.init()
