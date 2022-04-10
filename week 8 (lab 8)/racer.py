@@ -71,30 +71,31 @@ class Player(pygame.sprite.Sprite):
 class Coin(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load(open("week 8 (lab 8)/assets/сoin.png"))
+        self.image = pygame.image.load(open("week 8 (lab 8)/assets/Coin.png"))
         self.rect = self.image.get_rect()
         self.rect.center = (random.randint(40, SCREEN_WIDTH-40), 0)  
 
     def move(self):
-        global COIN_SCORE
         self.rect.move_ip(0,SPEED)
         if (self.rect.top > 600):
-            COIN_SCORE += 1
             self.rect.top = 0
-            self.rect.center = (random.randint(40, SCREEN_WIDTH - 40), 0)
+            self.rect.center = (random.randint(40, SCREEN_WIDTH - 40), 0)  
+    #Method for moving coin after hit
+    def getcoin(self):
+        self.rect.center =  (random.randint(40, SCREEN_WIDTH - 40), -30)
 
-                   
 #Setting up Sprites        
 P1 = Player()
 E1 = Enemy()
 C = Coin()
 #Creating Sprites Groups
 enemies = pygame.sprite.Group()
+coins = pygame.sprite.Group()
 enemies.add(E1)
 all_sprites = pygame.sprite.Group()
 all_sprites.add(P1)
 all_sprites.add(E1)
-all_sprites.add(C)
+coins.add(C)
 
  
 #Adding a new User event 
@@ -114,13 +115,18 @@ while True:
  
     DISPLAYSURF.blit(background, (0,0))
     scores = font_small.render(str(SCORE), True, BLACK)
+    coin_scores = font_small.render(str(COIN_SCORE), True, (255, 174, 66))
     DISPLAYSURF.blit(scores, (10,10))
+    DISPLAYSURF.blit(coin_scores, (10,40))
  
     #Moves and Re-draws all Sprites
     for entity in all_sprites:
         DISPLAYSURF.blit(entity.image, entity.rect)
         entity.move()
- 
+    for entity in coins:
+        DISPLAYSURF.blit(entity.image, entity.rect)
+        entity.move()
+
     #To be run if collision occurs between Player and Enemy
     if pygame.sprite.spritecollideany(P1, enemies):
           pygame.mixer.Sound(open("week 8 (lab 8)/assets/crash.wav")).play()
@@ -135,6 +141,10 @@ while True:
           time.sleep(2)
           pygame.quit()
           sys.exit()        
-         
+    #Hit coin
+    if pygame.sprite.spritecollideany(P1, coins):
+        COIN_SCORE += 1
+        C.getcoin()
+
     pygame.display.update()
     FramePerSec.tick(FPS)
