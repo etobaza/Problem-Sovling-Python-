@@ -2,7 +2,7 @@
 import pygame, sys
 from pygame.locals import *
 import random, time
- 
+
 #Initialzing 
 pygame.init()
  
@@ -23,13 +23,14 @@ SCREEN_HEIGHT = 600
 SPEED = 5
 SCORE = 0
 COIN_SCORE = 0
- 
+BOOSTER = 10
+
 #Setting up Fonts
 font = pygame.font.SysFont("Verdana", 60)
 font_small = pygame.font.SysFont("Verdana", 20)
 game_over = font.render("Game Over", True, BLACK)
  
-background = pygame.image.load(open("week 8 (lab 8)/assets/AnimatedStreet.png"))
+background = pygame.image.load(open("week 8/9 (lab 8/9)/assets/AnimatedStreet.png"))
  
 #Create a white screen 
 DISPLAYSURF = pygame.display.set_mode((400,600))
@@ -39,7 +40,7 @@ pygame.display.set_caption("Game")
 class Enemy(pygame.sprite.Sprite):
       def __init__(self):
         super().__init__() 
-        self.image = pygame.image.load(open("week 8 (lab 8)/assets/Enemy.png"))
+        self.image = pygame.image.load(open("week 8/9 (lab 8/9)/assets/Enemy.png"))
         self.rect = self.image.get_rect()
         self.rect.center = (random.randint(40, SCREEN_WIDTH-40), 0)  
  
@@ -55,7 +56,7 @@ class Enemy(pygame.sprite.Sprite):
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__() 
-        self.image = pygame.image.load(open("week 8 (lab 8)/assets/Player.png"))
+        self.image = pygame.image.load(open("week 8/9 (lab 8/9)/assets/Player.png"))
         self.rect = self.image.get_rect()
         self.rect.center = (160, 520)
         
@@ -71,7 +72,7 @@ class Player(pygame.sprite.Sprite):
 class Coin(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load(open("week 8 (lab 8)/assets/Coin.png"))
+        self.image = pygame.image.load(open("week 8/9 (lab 8/9)/assets/Coin.png"))
         self.rect = self.image.get_rect()
         self.rect.center = (random.randint(40, SCREEN_WIDTH-40), 0)  
 
@@ -82,20 +83,40 @@ class Coin(pygame.sprite.Sprite):
             self.rect.center = (random.randint(40, SCREEN_WIDTH - 40), 0)  
     #Method for moving coin after hit
     def getcoin(self):
-        self.rect.center =  (random.randint(40, SCREEN_WIDTH - 40), -30)
+        self.rect.center = (random.randint(40, SCREEN_WIDTH - 40), -30)
+
+class SuperCoin(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load(open("week 8/9 (lab 8/9)/assets/supercoin.png"))
+        self.rect = self.image.get_rect()
+        self.rect.center = (random.randint(40, SCREEN_WIDTH-40), 0) 
+
+    def move(self):
+        self.rect.move_ip(0,SPEED)
+        if (self.rect.top > 600):
+            self.rect.top = 0
+            self.rect.center = (random.randint(40, SCREEN_WIDTH - 40), 0)  
+    #Method for moving coin after hit
+    def getcoin(self):
+        self.rect.center = (random.randint(40, SCREEN_WIDTH - 40), random.randint(-5000, -1500))
 
 #Setting up Sprites        
 P1 = Player()
 E1 = Enemy()
 C = Coin()
+SC = SuperCoin()
+
 #Creating Sprites Groups
 enemies = pygame.sprite.Group()
 coins = pygame.sprite.Group()
+specials = pygame.sprite.Group()
 enemies.add(E1)
 all_sprites = pygame.sprite.Group()
 all_sprites.add(P1)
 all_sprites.add(E1)
 coins.add(C)
+specials.add(SC)
 
  
 #Adding a new User event 
@@ -116,20 +137,24 @@ while True:
     DISPLAYSURF.blit(background, (0,0))
     scores = font_small.render(str(SCORE), True, BLACK)
     coin_scores = font_small.render(str(COIN_SCORE), True, (255, 174, 66))
-    DISPLAYSURF.blit(scores, (10,10))
-    DISPLAYSURF.blit(coin_scores, (10,40))
+    DISPLAYSURF.blit(scores, (20,10))
+    DISPLAYSURF.blit(coin_scores, (360,10))
  
     #Moves and Re-draws all Sprites
     for entity in all_sprites:
         DISPLAYSURF.blit(entity.image, entity.rect)
         entity.move()
+
     for entity in coins:
+        DISPLAYSURF.blit(entity.image, entity.rect)
+        entity.move()
+    for entity in specials:
         DISPLAYSURF.blit(entity.image, entity.rect)
         entity.move()
 
     #To be run if collision occurs between Player and Enemy
     if pygame.sprite.spritecollideany(P1, enemies):
-          pygame.mixer.Sound(open("week 8 (lab 8)/assets/crash.wav")).play()
+          pygame.mixer.Sound(open("week 8/9 (lab 8/9)/assets/crash.wav")).play()
           time.sleep(0.5)
                     
           DISPLAYSURF.fill(RED)
@@ -140,11 +165,21 @@ while True:
                 entity.kill() 
           time.sleep(2)
           pygame.quit()
-          sys.exit()        
+          sys.exit()
+
+    #Speed increase after N coins
+    if BOOSTER == COIN_SCORE:
+        SPEED+=0.5
+        BOOSTER+=15
+        
     #Hit coin
     if pygame.sprite.spritecollideany(P1, coins):
         COIN_SCORE += 1
         C.getcoin()
+
+    if pygame.sprite.spritecollideany(P1, specials):
+        COIN_SCORE += 3
+        SC.getcoin()
 
     pygame.display.update()
     FramePerSec.tick(FPS)
