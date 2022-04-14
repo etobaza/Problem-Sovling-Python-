@@ -24,7 +24,7 @@ class Wall:
     def __init__(self):
         global level
         self.body = []
-        f = open("week 8/9 (lab 8/9)/levels/level{}.txt".format(level), "r")
+        f = open("week 8 and 9/levels/level{}.txt".format(level), "r")
 
         for y in range(0, HEIGHT // BLOCK_SIZE + 1):
             for x in range(0, WIDTH // BLOCK_SIZE + 1):
