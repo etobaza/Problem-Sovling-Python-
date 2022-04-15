@@ -1,6 +1,7 @@
 import pygame
 import random
 import threading
+import time
 pygame.init()
 
 BLACK = (0, 0, 0)
@@ -13,6 +14,9 @@ FOOD_SCORE = 0
 font = pygame.font.SysFont("Verdana", 16)
 level = 1
 speed = 5
+
+if level == 2:
+    time.sleep(5)
 
 class Point:
     def __init__(self, _x, _y):
